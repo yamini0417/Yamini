@@ -71,12 +71,6 @@
   <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR-GITHUB-USERNAME&layout=compact&hide_border=true&theme=transparent" alt="top langs" />
 </p>
 
----
-
-### 🐍 Contribution Snake
-![snake animation](https://raw.githubusercontent.com/YOUR-GITHUB-USERNAME/YOUR-GITHUB-USERNAME/output/snake.svg)
-
----
 
 ### 🤝 Let’s Connect
 - 📫 Email: syamini439@gmail.com
