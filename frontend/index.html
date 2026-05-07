@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlowHub — Your Beauty, Simplified</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo" onclick="showSection('home')">
+      <span class="logo-icon">✦</span> GlowHub
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showSection('home')">Home</a></li>
+      <li><a href="#" onclick="showSection('products'); filterByCategory('skincare')">Skincare</a></li>
+      <li><a href="#" onclick="showSection('products'); filterByCategory('haircare')">Haircare</a></li>
+      <li><a href="#" onclick="showSection('ai')">AI Advisor</a></li>
+      <li><a href="#" onclick="showSection('chat')">Chat</a></li>
+    </ul>
+    <button class="nav-search-btn" onclick="document.getElementById('hero-search').focus(); showSection('home')">Search</button>
+  </div>
+</nav>
+
+<!-- HOME SECTION -->
+<section id="section-home" class="section active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-content">
+      <p class="hero-tagline">All your beauty needs, one place</p>
+      <h1 class="hero-title">Discover the <em>perfect</em><br>products for you</h1>
+      <p class="hero-sub">GlowHub aggregates top-rated skincare & haircare products from Sephora, Amazon, Ulta, and more — powered by AI recommendations tailored to your unique concerns.</p>
+
+      <div class="hero-search-wrap">
+        <input id="hero-search" class="hero-search" type="text"
+          placeholder="Search: dry skin, dandruff, acne, hair growth..."
+          onkeydown="if(event.key==='Enter') heroSearch()" />
+        <button class="hero-search-btn" onclick="heroSearch()">Find Products</button>
+      </div>
+
+      <div class="concern-chips">
+        <span class="chip-label">Popular concerns:</span>
+        <button class="chip" onclick="quickSearch('acne')">Acne</button>
+        <button class="chip" onclick="quickSearch('dry skin')">Dry Skin</button>
+        <button class="chip" onclick="quickSearch('dandruff')">Dandruff</button>
+        <button class="chip" onclick="quickSearch('hair loss')">Hair Loss</button>
+        <button class="chip" onclick="quickSearch('anti-aging')">Anti-Aging</button>
+        <button class="chip" onclick="quickSearch('frizzy hair')">Frizzy Hair</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-cards-stack">
+        <div class="hero-card hc1">
+          <div class="hc-icon">✦</div>
+          <div>
+            <strong>Skincare</strong>
+            <span>Serums · Moisturizers · SPF</span>
+          </div>
+        </div>
+        <div class="hero-card hc2">
+          <div class="hc-icon">◈</div>
+          <div>
+            <strong>Haircare</strong>
+            <span>Shampoos · Masks · Oils</span>
+          </div>
+        </div>
+        <div class="hero-card hc3">
+          <div class="hc-icon">★</div>
+          <div>
+            <strong>AI Advisor</strong>
+            <span>Personalized recommendations</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS BANNER -->
+  <div class="stats-banner" id="stats-banner">
+    <div class="stat"><span class="stat-num" id="stat-products">30+</span><span>Products</span></div>
+    <div class="stat-div"></div>
+    <div class="stat"><span class="stat-num" id="stat-sources">7+</span><span>Sources</span></div>
+    <div class="stat-div"></div>
+    <div class="stat"><span class="stat-num" id="stat-brands">20+</span><span>Brands</span></div>
+    <div class="stat-div"></div>
+    <div class="stat"><span class="stat-num">AI</span><span>Powered Advice</span></div>
+  </div>
+
+  <!-- CATEGORY GRID -->
+  <div class="home-categories">
+    <h2 class="section-title">Shop by Category</h2>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="filterByGenderAndCat('women','skincare')">
+        <div class="cat-img cat-women-skin"></div>
+        <h3>Women's Skincare</h3>
+        <p>Serums, moisturizers, sunscreens & more</p>
+        <span class="cat-link">Explore →</span>
+      </div>
+      <div class="cat-card" onclick="filterByGenderAndCat('men','skincare')">
+        <div class="cat-img cat-men-skin"></div>
+        <h3>Men's Skincare</h3>
+        <p>Face wash, moisturizers & grooming</p>
+        <span class="cat-link">Explore →</span>
+      </div>
+      <div class="cat-card" onclick="filterByGenderAndCat('women','haircare')">
+        <div class="cat-img cat-women-hair"></div>
+        <h3>Women's Haircare</h3>
+        <p>Shampoos, masks, oils & styling</p>
+        <span class="cat-link">Explore →</span>
+      </div>
+      <div class="cat-card" onclick="filterByGenderAndCat('men','haircare')">
+        <div class="cat-img cat-men-hair"></div>
+        <h3>Men's Haircare</h3>
+        <p>Anti-dandruff, hair growth & styling</p>
+        <span class="cat-link">Explore →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP PICKS -->
+  <div class="home-featured">
+    <h2 class="section-title">Top Rated Products</h2>
+    <div class="products-grid" id="home-featured-grid">
+      <div class="loading-spinner"><div class="spinner"></div></div>
+    </div>
+    <div class="see-all-wrap">
+      <button class="btn-outline" onclick="showSection('products')">See All Products</button>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-it-works">
+    <h2 class="section-title">How GlowHub Works</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Tell us your concern</h3>
+        <p>Search by problem — acne, dry hair, aging, dandruff — or browse by category</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>AI analyzes & recommends</h3>
+        <p>Our Claude-powered AI agent matches you with the best products from top stores</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Shop from one place</h3>
+        <p>See products from Sephora, Amazon, Ulta, and more — all in one unified view</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- PRODUCTS SECTION -->
+<section id="section-products" class="section">
+  <div class="products-page">
+    <div class="filters-sidebar">
+      <h3>Filters</h3>
+
+      <div class="filter-group">
+        <label>Category</label>
+        <div class="filter-options">
+          <button class="filter-btn active" data-filter="category" data-value="all" onclick="setFilter('category','all',this)">All</button>
+          <button class="filter-btn" data-filter="category" data-value="skincare" onclick="setFilter('category','skincare',this)">Skincare</button>
+          <button class="filter-btn" data-filter="category" data-value="haircare" onclick="setFilter('category','haircare',this)">Haircare</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Gender</label>
+        <div class="filter-options">
+          <button class="filter-btn active" data-filter="gender" data-value="all" onclick="setFilter('gender','all',this)">All</button>
+          <button class="filter-btn" data-filter="gender" data-value="women" onclick="setFilter('gender','women',this)">Women</button>
+          <button class="filter-btn" data-filter="gender" data-value="men" onclick="setFilter('gender','men',this)">Men</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Concern</label>
+        <select id="concern-select" onchange="setFilter('concern', this.value, null)">
+          <option value="">All Concerns</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Min Rating</label>
+        <div class="filter-options rating-filter">
+          <button class="filter-btn active" data-filter="rating" data-value="0" onclick="setFilter('rating','0',this)">All</button>
+          <button class="filter-btn" data-filter="rating" data-value="4" onclick="setFilter('rating','4',this)">4+</button>
+          <button class="filter-btn" data-filter="rating" data-value="4.5" onclick="setFilter('rating','4.5',this)">4.5+</button>
+        </div>
+      </div>
+
+      <button class="btn-primary filter-apply-btn" onclick="applyFilters()">Apply Filters</button>
+      <button class="btn-outline" onclick="resetFilters()">Reset</button>
+    </div>
+
+    <div class="products-main">
+      <div class="products-header">
+        <div>
+          <h2 id="products-title">All Products</h2>
+          <p id="products-count" class="products-count"></p>
+        </div>
+        <div class="products-search-wrap">
+          <input id="products-search" type="text" placeholder="Search products..."
+            onkeydown="if(event.key==='Enter') searchProducts()" />
+          <button onclick="searchProducts()">Search</button>
+        </div>
+      </div>
+      <div class="products-grid" id="products-grid">
+        <div class="loading-spinner"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI ADVISOR SECTION -->
+<section id="section-ai" class="section">
+  <div class="ai-page">
+    <div class="ai-hero">
+      <h1>AI Beauty Advisor</h1>
+      <p>Tell us your beauty concern and our AI will analyze your needs and recommend the perfect products with a personalized routine.</p>
+    </div>
+
+    <div class="ai-form-card">
+      <h2>Describe your concern</h2>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Your main concern *</label>
+          <textarea id="ai-problem" rows="3"
+            placeholder="e.g. I have oily skin with frequent breakouts and large pores. I'm looking for products that can help control shine and clear acne..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Gender</label>
+            <select id="ai-gender">
+              <option value="">Prefer not to say</option>
+              <option value="women">Women</option>
+              <option value="men">Men</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Age Range</label>
+            <select id="ai-age">
+              <option value="">Select age range</option>
+              <option value="teens (13-19)">Teens (13-19)</option>
+              <option value="20s (20-29)">20s</option>
+              <option value="30s (30-39)">30s</option>
+              <option value="40s (40-49)">40s</option>
+              <option value="50+">50+</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Skin Type</label>
+            <select id="ai-skin">
+              <option value="">Select skin type</option>
+              <option value="oily">Oily</option>
+              <option value="dry">Dry</option>
+              <option value="combination">Combination</option>
+              <option value="sensitive">Sensitive</option>
+              <option value="normal">Normal</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Hair Type</label>
+            <select id="ai-hair">
+              <option value="">Select hair type</option>
+              <option value="straight">Straight</option>
+              <option value="wavy">Wavy</option>
+              <option value="curly">Curly</option>
+              <option value="coily/natural">Coily/Natural</option>
+              <option value="fine">Fine</option>
+              <option value="thick">Thick</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary ai-submit-btn" id="ai-submit-btn" onclick="getAIRecommendations()">
+        Get AI Recommendations
+      </button>
+    </div>
+
+    <div id="ai-results" class="ai-results" style="display:none">
+      <div class="ai-advice-card">
+        <div class="ai-badge">AI Advice</div>
+        <div id="ai-advice-text"></div>
+      </div>
+
+      <div class="ai-routine-card" id="ai-routine-card" style="display:none">
+        <h3>Recommended Routine</h3>
+        <ul id="ai-routine-list"></ul>
+      </div>
+
+      <div class="ai-products-section">
+        <h2>Recommended Products</h2>
+        <div class="products-grid" id="ai-products-grid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAT SECTION -->
+<section id="section-chat" class="section">
+  <div class="chat-page">
+    <div class="chat-header">
+      <div class="chat-avatar">✦</div>
+      <div>
+        <h2>BeautyAI Chat</h2>
+        <p class="chat-status">Online — Ready to help with your beauty questions</p>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-msg bot">
+        <div class="chat-bubble">
+          Hi! I'm BeautyAI, your personal beauty consultant. I can help you with skincare and haircare advice, product recommendations, and beauty routines tailored just for you. What's your beauty concern today?
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <input id="chat-input" type="text"
+        placeholder="Ask me about acne, dry skin, hair loss, routines..."
+        onkeydown="if(event.key==='Enter') sendChat()" />
+      <button class="chat-send-btn" onclick="sendChat()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+
+    <div class="chat-suggestions">
+      <button class="chip" onclick="sendChatMessage('What are the best products for oily skin?')">Oily skin products</button>
+      <button class="chip" onclick="sendChatMessage('How do I treat dandruff?')">Dandruff treatment</button>
+      <button class="chip" onclick="sendChatMessage('Best routine for men with acne?')">Men acne routine</button>
+      <button class="chip" onclick="sendChatMessage('Products for hair loss and thinning?')">Hair loss products</button>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT MODAL -->
+<div id="product-modal" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-icon">✦</span> GlowHub
+      <p>Your beauty, simplified. AI-powered product aggregation from top beauty retailers.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Categories</h4>
+      <a href="#" onclick="filterByCategory('skincare')">Skincare</a>
+      <a href="#" onclick="filterByCategory('haircare')">Haircare</a>
+      <a href="#" onclick="showSection('ai')">AI Advisor</a>
+    </div>
+    <div class="footer-links">
+      <h4>Sources</h4>
+      <p id="footer-sources">Sephora · Amazon · Ulta · Target · Walmart · CVS · Dermstore</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 GlowHub. Powered by Claude AI. Products sourced from multiple retailers.</p>
+  </div>
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
